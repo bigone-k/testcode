@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+    <!--    user.selectUser : 회원 조회-->
+    <select id="selectUser" parameterType="String" resultType="User">
+        SELECT *
+        FROM   User
+        WHERE  userId = #{userId}
+    </select>
+
+    <!--    user.selectUsers-->
+    <select id="selectUsers" resultType="User">
+        SELECT *
+        FROM   User
+    </select>
+
+    <!--    user.selectProviderUser-->
+    <select id="selectProviderUser" parameterType="hashMap" resultType="User">
+        SELECT *
+        FROM   User
+        WHERE  userId = #{userId}
+        AND    provider = #{provider}
+    </select>
+
+    <!--    user.deleteUser-->
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM User
+        WHERE  userId = #{userId}
+    </delete>
+
+    <!--    user.insertUser-->
+    <insert id="insertUser" parameterType="hashMap">
+        INSERT INTO User (userId, password, name, provider)
+        VALUES (#{userid}, #{password}, #{name}, #{provider});
+    </insert>
+
+    <!--    user.updateUser-->
+    <update id="updateUser">
+        UPDATE USER
+        SET userId = #{userid}
+           ,password = #{password}
+           ,name = #{name}
+           ,provider = #{provider}
+        WHERE userNo = #{userNo}
+    </update>
+</mapper>
