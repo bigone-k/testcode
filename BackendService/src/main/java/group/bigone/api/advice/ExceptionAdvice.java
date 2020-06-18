@@ -1,8 +1,8 @@
 package group.bigone.api.advice;
 
-import group.bigone.api.common.Service.ResponseService;
+import group.bigone.api.service.ResponseService;
 import group.bigone.api.advice.exception.*;
-import group.bigone.api.common.domain.CommonResult;
+import group.bigone.api.model.response.CommonResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;

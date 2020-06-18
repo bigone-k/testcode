@@ -1,4 +1,4 @@
-package group.bigone.api.social.domain;
+package group.bigone.api.model.social;
 
 import lombok.Getter;
 import lombok.Setter;

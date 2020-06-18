@@ -1,12 +1,11 @@
-package group.bigone.api.user.controller;
+package group.bigone.api.controller.v1;
 
 import group.bigone.api.advice.exception.CUserExistException;
-import group.bigone.api.common.Service.ResponseService;
-import group.bigone.api.user.Service.UserService;
-import group.bigone.api.user.domain.User;
-import group.bigone.api.common.domain.CommonResult;
-import group.bigone.api.common.domain.ListResult;
-import group.bigone.api.common.domain.SingleResult;
+import group.bigone.api.service.ResponseService;
+import group.bigone.api.service.UserService;
+import group.bigone.api.entity.User;
+import group.bigone.api.model.response.ListResult;
+import group.bigone.api.model.response.SingleResult;
 import io.swagger.annotations.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

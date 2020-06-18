@@ -1,8 +1,8 @@
-package group.bigone.api.common.Service;
+package group.bigone.api.service;
 
-import group.bigone.api.common.domain.CommonResult;
-import group.bigone.api.common.domain.ListResult;
-import group.bigone.api.common.domain.SingleResult;
+import group.bigone.api.model.response.CommonResult;
+import group.bigone.api.model.response.ListResult;
+import group.bigone.api.model.response.SingleResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

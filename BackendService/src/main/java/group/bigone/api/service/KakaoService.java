@@ -1,9 +1,9 @@
-package group.bigone.api.sign.Service;
+package group.bigone.api.service;
 
 import com.google.gson.Gson;
 import group.bigone.api.advice.exception.CCommunicationException;
-import group.bigone.api.social.domain.KakaoProfile;
-import group.bigone.api.social.domain.RetKakaoAuth;
+import group.bigone.api.model.social.KakaoProfile;
+import group.bigone.api.model.social.RetKakaoAuth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;

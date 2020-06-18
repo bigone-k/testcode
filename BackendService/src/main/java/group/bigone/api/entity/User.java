@@ -1,7 +1,7 @@
-package group.bigone.api.user.domain;
+package group.bigone.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import group.bigone.api.common.domain.CommonDateEntity;
+import group.bigone.api.model.response.CommonDateEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Builder
 @Getter

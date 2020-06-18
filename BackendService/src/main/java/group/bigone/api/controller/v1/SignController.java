@@ -1,16 +1,16 @@
-package group.bigone.api.sign.controller;
+package group.bigone.api.controller.v1;
 
 import group.bigone.api.advice.exception.CEmailSigninFailedException;
 import group.bigone.api.advice.exception.CUserExistException;
 import group.bigone.api.advice.exception.CUserNotFoundException;
-import group.bigone.api.common.Service.ResponseService;
-import group.bigone.api.common.domain.CommonResult;
-import group.bigone.api.common.domain.SingleResult;
+import group.bigone.api.service.ResponseService;
+import group.bigone.api.model.response.CommonResult;
+import group.bigone.api.model.response.SingleResult;
 import group.bigone.api.config.security.JwtTokenProvider;
-import group.bigone.api.sign.Service.KakaoService;
-import group.bigone.api.social.domain.KakaoProfile;
-import group.bigone.api.user.Service.UserService;
-import group.bigone.api.user.domain.User;
+import group.bigone.api.service.KakaoService;
+import group.bigone.api.model.social.KakaoProfile;
+import group.bigone.api.service.UserService;
+import group.bigone.api.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

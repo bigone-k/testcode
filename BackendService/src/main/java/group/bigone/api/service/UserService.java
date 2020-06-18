@@ -1,7 +1,6 @@
-package group.bigone.api.user.Service;
+package group.bigone.api.service;
 
-import group.bigone.api.user.domain.User;
-import group.bigone.api.common.domain.SingleResult;
+import group.bigone.api.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package group.bigone.api.exception.controller;
+package group.bigone.api.controller.exception;
 
 import group.bigone.api.advice.exception.CAuthenticationEntryPointException;
-import group.bigone.api.common.domain.CommonResult;
+import group.bigone.api.model.response.CommonResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.GetMapping;

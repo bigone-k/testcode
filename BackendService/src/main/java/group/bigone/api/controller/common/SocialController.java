@@ -1,7 +1,7 @@
-package group.bigone.api.social.controller;
+package group.bigone.api.controller.common;
 
 import com.google.gson.Gson;
-import group.bigone.api.sign.Service.KakaoService;
+import group.bigone.api.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;

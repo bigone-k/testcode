@@ -1,6 +1,7 @@
-package group.bigone.api.user.Service;
+package group.bigone.api.service;
 
 import group.bigone.api.advice.exception.CUserNotFoundException;
+import group.bigone.api.service.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
