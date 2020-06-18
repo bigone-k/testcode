@@ -28,6 +28,8 @@ public class User extends CommonDateEntity implements UserDetails {
 
     private String name;
 
+    private String authority;
+
     private String provider;
 
     @Builder.Default
@@ -35,7 +37,10 @@ public class User extends CommonDateEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        //return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+        auth.add(new SimpleGrantedAuthority(authority));
+        return auth;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

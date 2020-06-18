@@ -5,7 +5,9 @@ import group.bigone.api.common.domain.SingleResult;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -15,37 +17,28 @@ public class UserService {
         this.sqlSession = sqlSession;
     }
 
-    public SingleResult<User> selectUser(String userId) {
-
-        SingleResult<User> singleResult = new SingleResult<>();
-
+    public Optional<User> selectUser(String userId) {
         User user = (User) sqlSession.selectOne("user.selectUser", userId);
 
-        singleResult.setData(user);
-
-        return singleResult;
+        return Optional.of(user);
     }
 
-    public SingleResult<User> selectProviderUser(String userId, String provider) {
+    public Optional<User> selectProviderUser(String userId, String provider) {
 
-        SingleResult<User> singleResult = new SingleResult<>();
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("userId", userId);
+        hashMap.put("provider", provider);
 
-        User user = (User) sqlSession.selectOne("user.selectProviderUser", userId);
+        User user = (User) sqlSession.selectOne("user.selectProviderUser", hashMap);
 
-        singleResult.setData(user);
-
-        return singleResult;
+        return Optional.of(user);
     }
 
-    public SingleResult<List<User>> selectUsers() {
-
-        SingleResult<List<User>> singleResult = new SingleResult<>();
+    public Optional<List<User>> selectUsers() {
 
         List<User> userList = (List) sqlSession.selectList("user.selectUsers");
 
-        singleResult.setData(userList);
-
-        return singleResult;
+        return Optional.of(userList);
     }
 
     public void deleteUser(String userId) {

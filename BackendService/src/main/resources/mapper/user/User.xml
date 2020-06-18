@@ -16,7 +16,7 @@
     </select>
 
     <!--    user.selectProviderUser-->
-    <select id="selectProviderUser" parameterType="hashMap" resultType="User">
+    <select id="selectProviderUser" parameterType="hashmap" resultType="User">
         SELECT *
         FROM   User
         WHERE  userId = #{userId}
@@ -30,15 +30,15 @@
     </delete>
 
     <!--    user.insertUser-->
-    <insert id="insertUser" parameterType="hashMap">
+    <insert id="insertUser" parameterType="User">
         INSERT INTO User (userId, password, name, provider)
-        VALUES (#{userid}, #{password}, #{name}, #{provider});
+        VALUES (#{userId}, #{password}, #{name}, #{provider});
     </insert>
 
     <!--    user.updateUser-->
     <update id="updateUser">
         UPDATE USER
-        SET userId = #{userid}
+        SET userId = #{userId}
            ,password = #{password}
            ,name = #{name}
            ,provider = #{provider}

@@ -1,5 +1,6 @@
 package group.bigone.api.user.controller;
 
+import group.bigone.api.advice.exception.CUserExistException;
 import group.bigone.api.common.Service.ResponseService;
 import group.bigone.api.user.Service.UserService;
 import group.bigone.api.user.domain.User;
@@ -10,6 +11,8 @@ import io.swagger.annotations.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Api(tags = {"User"})
@@ -32,40 +35,18 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
 
-        return responseService.getSingleResult(userService.selectUser(userId).getData());
-    }
+        User user = userService.selectUser(userId).orElseThrow(CUserExistException::new);
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "AccessToken", required = true, dataType = "String", paramType = "header")})
-    @ApiOperation(value = "Update User name", notes = "Update User name Information")
-    @PutMapping(value = "/user")
-    public CommonResult modify(
-            @ApiParam(value = "userid", required = true) @RequestParam String userid,
-            @ApiParam(value = "name", required = true) @RequestParam String username) {
-
-        User user = userService.selectUser(userid).getData();
-
-        user.setName(username);
-
-        userService.updateUser(user);
-
-        return responseService.getSuccessResult();
-    }
-
-    @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "AccessToken", required = true, dataType = "String", paramType = "header")})
-    @ApiOperation(value = "Delete User", notes = "Delete User by userNo")
-    @DeleteMapping(value = "/user/{userno}")
-    public CommonResult delete(
-            @ApiParam(value = "userid", required = true) @PathVariable String userid) {
-
-        userService.deleteUser(userid);
-
-        return responseService.getSuccessResult();
+        return responseService.getSingleResult(user);
     }
 
     @ApiImplicitParams({@ApiImplicitParam(name = "X-AUTH-TOKEN", value = "AccessToken", required = true, dataType = "String", paramType = "header")})
     @ApiOperation(value = "Get Users", notes = "Select a Users by AccessToken")
     @GetMapping(value = "/users")
     public ListResult<User> findAllUsers() {
-        return responseService.getListResult(userService.selectUsers().getData());
+
+        List<User> userList = userService.selectUsers().orElseThrow(CUserExistException::new);
+
+        return responseService.getListResult(userList);
     }
 }

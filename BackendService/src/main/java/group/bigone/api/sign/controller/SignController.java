@@ -43,10 +43,11 @@ public class SignController {
     @ApiOperation(value = "SignIn", notes = "Do signIn")
     @GetMapping(value = "/signin")
     public SingleResult<String> signin(@ApiParam(value = "email", required = true) @RequestParam String userId,
-                                       @ApiParam(value = "passWord", required = true) @RequestParam String passWord) {
+                                       @ApiParam(value = "passWord", required = true) @RequestParam String password) {
 
-        User user = userService.selectUser(userId).getData();
-
+        User user = userService.selectUser(userId).orElseThrow(CEmailSigninFailedException::new);
+        if ( !passwordEncoder.matches(password, user.getPassword()))
+            throw new CEmailSigninFailedException();
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(user.getUsername(), user.getRoles()));
     }
@@ -63,6 +64,7 @@ public class SignController {
                 .name(name)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build());
+
         return responseService.getSuccessResult();
     }
 
@@ -73,7 +75,7 @@ public class SignController {
             @ApiParam(value = "access_token", required = true) @RequestParam String accessToken) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-        User user = userService.selectProviderUser(String.valueOf(profile.getId()), provider).getData();
+        User user = userService.selectProviderUser(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getUsername()), user.getRoles()));
     }
@@ -85,8 +87,9 @@ public class SignController {
                                        @ApiParam(value = "name", required = true) @RequestParam String name) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-        User user = userService.selectProviderUser(String.valueOf(profile.getId()), provider).getData();
-        if(!user.getUserId().isEmpty())
+
+        Optional<User> user = userService.selectProviderUser(String.valueOf(profile.getId()), provider);
+        if(user.isPresent())
             throw new CUserExistException();
 
         userService.insertUser(User.builder()
