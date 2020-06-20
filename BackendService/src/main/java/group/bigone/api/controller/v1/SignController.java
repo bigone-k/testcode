@@ -45,7 +45,7 @@ public class SignController {
     public SingleResult<String> signin(@ApiParam(value = "email", required = true) @RequestParam String userId,
                                        @ApiParam(value = "passWord", required = true) @RequestParam String password) {
 
-        User user = userService.selectUser(userId).orElseThrow(CEmailSigninFailedException::new);
+        User user = userService.selectUserById(userId).orElseThrow(CEmailSigninFailedException::new);
         if ( !passwordEncoder.matches(password, user.getPassword()))
             throw new CEmailSigninFailedException();
 

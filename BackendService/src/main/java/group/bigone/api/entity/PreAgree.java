@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountInfo {
+public class PreAgree {
+    private Long userNo;
 
-    private PreAgreeInfo preAgreeInfo;
+    private Boolean agree;
 
-    private IDCardInfo idCardInfo;
-
+    private String accountPassword;
 }

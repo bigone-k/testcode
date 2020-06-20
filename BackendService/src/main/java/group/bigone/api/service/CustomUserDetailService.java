@@ -16,6 +16,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userPk) {
-        return userService.selectUser(userPk).orElseThrow(CUserNotFoundException::new);
+        return userService.selectUserByNo(Long.valueOf(userPk)).orElseThrow(CUserNotFoundException::new);
     }
 }

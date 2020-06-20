@@ -9,10 +9,13 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthWord {
+public class ProcessStep {
     private Long userNo;
 
-    private String authWord;
+    private short stepType;
+
+    private short stateCode;
 
     private LocalDateTime regDate;
 }
+

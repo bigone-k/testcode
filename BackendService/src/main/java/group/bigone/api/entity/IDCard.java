@@ -7,10 +7,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OtherAccount {
-    private String accountNmae;
+public class IDCard {
+    private Long userNo;
 
-    private String accountNumber;
+    private String idCardImage;
 
-    private String bankcode;
+    private String name;
+
+    private String birthday;
+
+    private String idCardSeqNo;
 }

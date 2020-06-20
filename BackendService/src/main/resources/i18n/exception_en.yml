@@ -25,3 +25,6 @@ notOwner:
 resourceNotExist:
   code: "-1007"
   msg: "This resource does not exist."
+noDataCode:
+  code: "-1009"
+  msg: "This Data Code does not exist."

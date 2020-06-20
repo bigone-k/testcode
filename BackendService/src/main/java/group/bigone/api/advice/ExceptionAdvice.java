@@ -71,6 +71,12 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.valueOf(getMessage("resourceNotExist.code")), getMessage("resourceNotExist.msg"));
     }
 
+    @ExceptionHandler(NoDataCodeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult NoDataCodeException(HttpServletRequest request, NoDataCodeException e) {
+        return  responseService.getFailResult(Integer.valueOf(getMessage("noDataCode.code")), getMessage("noDataCode.msg"));
+    }
+
     private String getMessage(String code) {
         return getMessage(code, null);
     }

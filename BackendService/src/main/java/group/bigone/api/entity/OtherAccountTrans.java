@@ -9,10 +9,14 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthWord {
-    private Long userNo;
+public class OtherAccountTrans {
+    private String accountName;
 
-    private String authWord;
+    private String accountNum;
+
+    private String bankCode;
+
+    private short stateCode;
 
     private LocalDateTime regDate;
 }

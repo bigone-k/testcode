@@ -16,8 +16,14 @@ public class UserService {
         this.sqlSession = sqlSession;
     }
 
-    public Optional<User> selectUser(String userId) {
-        User user = (User) sqlSession.selectOne("user.selectUser", userId);
+    public Optional<User> selectUserById(String userId) {
+        User user = (User) sqlSession.selectOne("user.selectUserById", userId);
+
+        return Optional.of(user);
+    }
+
+    public Optional<User> selectUserByNo(Long userNo) {
+        User user = (User) sqlSession.selectOne("user.selectUserByNo", userNo);
 
         return Optional.of(user);
     }

@@ -32,9 +32,9 @@ public class UserController {
     @GetMapping(value = "/user")
     public SingleResult<User> findUserById() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userId = authentication.getName();
+        Long userNo = Long.valueOf(authentication.getName());
 
-        User user = userService.selectUser(userId).orElseThrow(CUserExistException::new);
+        User user = userService.selectUserByNo(userNo).orElseThrow(CUserExistException::new);
 
         return responseService.getSingleResult(user);
     }
