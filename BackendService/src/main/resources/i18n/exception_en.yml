@@ -28,3 +28,12 @@ resourceNotExist:
 noDataCode:
   code: "-1009"
   msg: "This Data Code does not exist."
+noMatchIDCard:
+  code: "-1010"
+  msg: "No Match IdCard."
+scrapFail:
+  code: "-1011"
+  msg: "Fail to IdCardScraping."
+
+
+

@@ -7,6 +7,13 @@ spring:
   url:
     base: http://localhost:8080
 
+  servlet:
+    multipart: #upload File
+      file-size-threshold: 1MB
+      location: /Users/bigone/Documents/@git/testcode
+      max-file-size: 100MB
+      max-request-size: 100MB
+
 #  jpa:
 #    database-platform: org.hibernate.dialect.H2Dialect
 #    properties.hibernate:

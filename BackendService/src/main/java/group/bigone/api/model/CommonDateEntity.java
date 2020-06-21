@@ -1,4 +1,4 @@
-package group.bigone.api.model.response;
+package group.bigone.api.model;
 
 import lombok.Getter;
 

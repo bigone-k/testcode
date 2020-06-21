@@ -13,7 +13,7 @@
     <select id="selectUserByNo" parameterType="Long" resultType="User">
         SELECT *
         FROM   User
-        WHERE  userId = #{userNo}
+        WHERE  userNo = #{userNo}
     </select>
 
     <!--    user.selectUsers-->

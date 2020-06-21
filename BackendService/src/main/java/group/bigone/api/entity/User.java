@@ -1,7 +1,8 @@
 package group.bigone.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import group.bigone.api.model.response.CommonDateEntity;
+import group.bigone.api.model.CommonDateEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class User extends CommonDateEntity implements UserDetails {
     private List<String> roles = new ArrayList<>();
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();

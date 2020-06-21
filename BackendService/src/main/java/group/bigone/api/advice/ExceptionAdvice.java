@@ -77,6 +77,18 @@ public class ExceptionAdvice {
         return  responseService.getFailResult(Integer.valueOf(getMessage("noDataCode.code")), getMessage("noDataCode.msg"));
     }
 
+    @ExceptionHandler(NoMatchIDCardException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult NoMatchIDCardException(HttpServletRequest request, NoDataCodeException e) {
+        return  responseService.getFailResult(Integer.valueOf(getMessage("noMatchIDCard.code")), getMessage("noMatchIDCard.msg"));
+    }
+
+    @ExceptionHandler(FailScrapIDCardException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult FailScrapIDCardException(HttpServletRequest request, NoDataCodeException e) {
+        return  responseService.getFailResult(Integer.valueOf(getMessage("scrapFail.code")), getMessage("scrapFail.msg"));
+    }
+
     private String getMessage(String code) {
         return getMessage(code, null);
     }

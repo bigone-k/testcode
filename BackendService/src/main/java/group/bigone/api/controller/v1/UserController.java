@@ -16,7 +16,7 @@ import java.util.List;
 
 @Api(tags = {"User"})
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = "/client")
 public class UserController {
 
     private final UserService userService;

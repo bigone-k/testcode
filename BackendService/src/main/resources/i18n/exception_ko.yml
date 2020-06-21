@@ -28,3 +28,9 @@ resourceNotExist:
 noDataCode:
   code: "-1009"
   msg: "요청한 데이터 코드는 존재하지 않습니다."
+noMatchIDCard:
+  code: "-1010"
+  msg: "신분증이 일치 하지 않습니다."
+scrapFail:
+  code: "-1011"
+  msg: "신분증 스크립 실패."

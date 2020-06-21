@@ -26,3 +26,4 @@ mybatis:
 # Logging Configuration File Path
 logging:
   config: classpath:config/logback-${spring.profiles.active}.xml
+
