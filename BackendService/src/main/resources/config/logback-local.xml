@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_DIR" value="../logs" />
+    <property name="LOG_DIR" value="D:/@Git/testcode/logs" />
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder>
@@ -61,45 +61,11 @@
     </logger>
 
     <!-- Custom -->
-    <logger name="INTERCEPTOR" level="WARN" additivity="false">
+    <logger name="AOP" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="LOG_FILE" />
     </logger>
 
-    <logger name="CONFIG" level="WARN" additivity="false">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="LOG_FILE" />
-    </logger>
-
-    <logger name="UTIL" level="WARN" additivity="false">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="LOG_FILE" />
-    </logger>
-
-    <logger name="EXCEPTION" level="DEBUG" additivity="false">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="LOG_FILE" />
-    </logger>
-
-    <logger name="FILTER" level="WARN" additivity="false">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="LOG_FILE" />
-    </logger>
-
-    <logger name="AOP" level="WARN" additivity="false">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="LOG_FILE" />
-    </logger>
-
-    <logger name="CONTROLLER" level="WARN" additivity="false">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="LOG_FILE" />
-    </logger>
-
-    <logger name="SERVICEIMPL" level="WARN" additivity="false">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="LOG_FILE" />
-    </logger>
 
     <!-- Root -->
     <root level="DEBUG">

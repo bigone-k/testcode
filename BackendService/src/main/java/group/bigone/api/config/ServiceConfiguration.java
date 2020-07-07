@@ -1,5 +1,7 @@
 package group.bigone.api.config;
 
+import group.bigone.api.ProcessStepIntercepter;
+import group.bigone.api.common.constants.GlobalConstants;
 import net.rakugakibox.util.YamlResourceBundle;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -17,7 +19,13 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 @Configuration
-public class MessageConfiguration implements WebMvcConfigurer {
+public class ServiceConfiguration implements WebMvcConfigurer {
+
+    private final ProcessStepIntercepter processStepIntercepter;
+
+    public ServiceConfiguration(ProcessStepIntercepter processStepIntercepter) {
+        this.processStepIntercepter = processStepIntercepter;
+    }
 
     @Bean // 세션에 지역설정. default는 KOREAN = 'ko'
     public LocaleResolver localeResolver() {
@@ -36,6 +44,7 @@ public class MessageConfiguration implements WebMvcConfigurer {
     @Override // 인터셉터를 시스템 레지스트리에 등록
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(processStepIntercepter).addPathPatterns(GlobalConstants.PREFIX_URL.concat("/**"));
     }
 
     @Bean // yml 파일을 참조하는 MessageSource 선언

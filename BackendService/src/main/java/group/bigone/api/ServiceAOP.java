@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class ServiceAOP {
     private static final Logger logger = LoggerFactory.getLogger("AOP");
 
-    @Pointcut("within(group.bigone.api.controller.*)")
+    @Pointcut("within(group.bigone.api.controller.v1.*)")
     public void controllerPointcut() {
     }
 

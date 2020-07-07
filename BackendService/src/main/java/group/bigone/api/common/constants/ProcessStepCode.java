@@ -9,7 +9,8 @@ import java.util.Arrays;
 public enum ProcessStepCode {
     IDCARD(1),
     TRANSFER(2),
-    CERTIFIEDWORD(3);
+    CERTIFIEDWORD(3),
+    ELSE(0);
 
     private Short code;
 
@@ -21,7 +22,7 @@ public enum ProcessStepCode {
         return Arrays.stream(ProcessStepCode.values())
                 .filter(group -> group.hasCode(stepCode))
                 .findAny()
-                .orElseThrow(NoDataCodeException::new);
+                .orElseThrow(()->new NoDataCodeException());
     }
 
     public boolean hasCode(short stepCode) {

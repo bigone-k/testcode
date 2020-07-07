@@ -3,14 +3,15 @@ package group.bigone.api.controller.v1;
 import group.bigone.api.advice.exception.CEmailSigninFailedException;
 import group.bigone.api.advice.exception.CUserExistException;
 import group.bigone.api.advice.exception.CUserNotFoundException;
-import group.bigone.api.service.ResponseService;
+import group.bigone.api.common.constants.GlobalConstants;
+import group.bigone.api.config.security.JwtTokenProvider;
+import group.bigone.api.entity.User;
 import group.bigone.api.model.response.CommonResult;
 import group.bigone.api.model.response.SingleResult;
-import group.bigone.api.config.security.JwtTokenProvider;
-import group.bigone.api.service.KakaoService;
 import group.bigone.api.model.social.KakaoProfile;
+import group.bigone.api.service.KakaoService;
+import group.bigone.api.service.ResponseService;
 import group.bigone.api.service.UserService;
-import group.bigone.api.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 @Api(tags = {"Sign"})
 @RestController
-@RequestMapping(value = "/v1")
+@RequestMapping(value = GlobalConstants.PREFIX_URL)
 public class SignController {
 
     private final UserService userService;
@@ -45,7 +46,7 @@ public class SignController {
     public SingleResult<String> signin(@ApiParam(value = "email", required = true) @RequestParam String userId,
                                        @ApiParam(value = "passWord", required = true) @RequestParam String password) {
 
-        User user = userService.selectUserById(userId).orElseThrow(CEmailSigninFailedException::new);
+        User user = userService.selectUserById(userId).orElseThrow(() -> new CEmailSigninFailedException());
         if ( !passwordEncoder.matches(password, user.getPassword()))
             throw new CEmailSigninFailedException();
 
@@ -75,7 +76,7 @@ public class SignController {
             @ApiParam(value = "access_token", required = true) @RequestParam String accessToken) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
-        User user = userService.selectProviderUser(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
+        User user = userService.selectProviderUser(String.valueOf(profile.getId()), provider).orElseThrow(() -> new CUserNotFoundException());
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getUsername()), user.getRoles()));
     }

@@ -34,7 +34,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Long userNo = Long.valueOf(authentication.getName());
 
-        User user = userService.selectUserByNo(userNo).orElseThrow(CUserExistException::new);
+        User user = userService.selectUserByNo(userNo).orElseThrow(() -> new CUserExistException());
 
         return responseService.getSingleResult(user);
     }
@@ -44,7 +44,7 @@ public class UserController {
     @GetMapping(value = "/users")
     public ListResult<User> findAllUsers() {
 
-        List<User> userList = userService.selectUsers().orElseThrow(CUserExistException::new);
+        List<User> userList = userService.selectUsers().orElseThrow(() -> new CUserExistException());
 
         return responseService.getListResult(userList);
     }

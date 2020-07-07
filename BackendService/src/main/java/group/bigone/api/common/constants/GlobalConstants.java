@@ -9,4 +9,7 @@ public class GlobalConstants {
     //EndPoint Url
     public static final String IDCARD_SCRAPING    = "/auth/scraping";
     public static final String USER_GET           = "/client/user";
+
+    //PrefixUrl
+    public static final String PREFIX_URL    = "/v1";
 }

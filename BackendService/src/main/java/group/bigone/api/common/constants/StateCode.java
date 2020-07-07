@@ -22,7 +22,7 @@ public enum StateCode {
         return Arrays.stream(StateCode.values())
                 .filter(group -> group.hasCode(stateCode))
                 .findAny()
-                .orElseThrow(NoDataCodeException::new);
+                .orElseThrow(() -> new NoDataCodeException());
     }
 
     public boolean hasCode(short stateCode) {

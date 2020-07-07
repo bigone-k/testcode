@@ -2,6 +2,7 @@ package group.bigone.api.service;
 
 import group.bigone.api.advice.exception.CEmailSigninFailedException;
 import group.bigone.api.advice.exception.FailScrapIDCardException;
+import group.bigone.api.advice.exception.NoMatchIDCardException;
 import group.bigone.api.common.constants.GlobalConstants;
 import group.bigone.api.config.security.JwtTokenProvider;
 import group.bigone.api.entity.IDCard;
@@ -28,13 +29,11 @@ public class IDCardService {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final SqlSession sqlSession;
-    private final ProcessStepService processStepService;
     private final UserService userService;
 
-    IDCardService(JwtTokenProvider jwtTokenProvider, SqlSession sqlSession, ProcessStepService processStepService, UserService userService) {
+    IDCardService(JwtTokenProvider jwtTokenProvider, SqlSession sqlSession, UserService userService) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.sqlSession = sqlSession;
-        this.processStepService = processStepService;
         this.userService = userService;
     }
 
@@ -74,7 +73,7 @@ public class IDCardService {
     }
 
     //    # Check IDCard
-    public Boolean CheckIDCard(IDCard idCard) {
+    public void CheckIDCard(IDCard idCard) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String token = jwtTokenProvider.resolveToken(request);
         Long userNo = Long.valueOf(jwtTokenProvider.getUserPk(token));
@@ -99,10 +98,21 @@ public class IDCardService {
         if (!responseEntity.getBody().getData().getName().equals(idCard.getName()))
             throw new CEmailSigninFailedException();
 
-        // Insert IDCard
-        idCard.setUserNo(userNo);
-        sqlSession.insert("idcard.insertIDCard", idCard);
+        InsertIDCard(idCard);
+    }
 
-        return true;
+    public void InsertIDCard(IDCard idCard) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String token = jwtTokenProvider.resolveToken(request);
+        Long userNo = Long.valueOf(jwtTokenProvider.getUserPk(token));
+
+        try {
+            // Insert IDCard
+            idCard.setUserNo(userNo);
+            sqlSession.insert("idcard.insertIDCard", idCard);
+        }
+        catch (Exception ex) {
+            throw new NoMatchIDCardException();
+        }
     }
 }

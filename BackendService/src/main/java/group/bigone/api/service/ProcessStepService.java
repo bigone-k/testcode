@@ -1,5 +1,7 @@
 package group.bigone.api.service;
 
+import group.bigone.api.advice.exception.NoDataCodeException;
+import group.bigone.api.common.constants.StateCode;
 import group.bigone.api.config.security.JwtTokenProvider;
 import group.bigone.api.entity.ProcessStep;
 import org.apache.ibatis.session.SqlSession;
@@ -24,8 +26,7 @@ public class ProcessStepService {
     //    # Find Process Step
     public Optional<ProcessStep> FindProcessStep() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String token = jwtTokenProvider.resolveToken(request);
-        Long userNo = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        Long userNo = Long.valueOf(jwtTokenProvider.getUserPk(jwtTokenProvider.resolveToken(request)));
 
         ProcessStep processStep = (ProcessStep) sqlSession.selectOne("processstep.selectProcessStep", userNo);
 
@@ -33,12 +34,28 @@ public class ProcessStepService {
     }
 
     //    # Update Process Step
-    public void UpdateProcessStep(ProcessStep processStep) {
-        sqlSession.update("processstep.updateProcessStep", processStep);
+    public void UpdateProcessStep(short stateCode) {
+        ProcessStep processStep = FindProcessStep().orElseThrow(() -> new NoDataCodeException());
+
+        ProcessStep updateprocessStep = ProcessStep.UpdateBuilder()
+                .seqNo(processStep.getSeqNo())
+                .stateCode(stateCode)
+                .build();
+
+        sqlSession.update("processstep.updateProcessStep", updateprocessStep);
     }
 
     //    # Insert Process Step
-    public void InsertProcessStep(ProcessStep processStep) {
-        sqlSession.insert("processstep.insertProcessStep", processStep);
+    public void InsertProcessStep(short processStepCode) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        Long userNo = Long.valueOf(jwtTokenProvider.getUserPk(jwtTokenProvider.resolveToken(request)));
+
+        ProcessStep insertProcessStep = ProcessStep.InsertBuilder()
+                .stateCode(StateCode.WAIT.getCode())
+                .userNo(userNo)
+                .stepType(processStepCode)
+                .build();
+
+        sqlSession.insert("processstep.insertProcessStep", insertProcessStep);
     }
 }
